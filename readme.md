@@ -59,6 +59,18 @@ The ESP32 Touch Camera ILI9341 use ILI9341 screen, which comes with resistive sc
 
 # Example
 
+## Camera
+
+This is a test demo. You can check that ESP32, screen, touch, SD card reader and the camera function properly.
+
+- Copy logo.bmp to sd card.
+- Insert SD card.
+- Upload code to ESP32.
+- Restart ESP32.
+- Screen will show "TOUCH TO START TEST", please touch screen.
+- Will show logo picture in SD card.
+- And ESP32 will open camera, and show on screen.
+
 ## Example introduction
 
 Five projects were implemented : "Graphic_Test", "Touch_Test", "Touch_Draw", "SD_Test" and "Wifi_Camera".
