@@ -3,13 +3,14 @@
 titile  :   Makerfabs IO define
 author  :   Vincent
 create  :   2020/9/4
-version :   1.1
-update  :   2020/9/22
+version :   1.3
+update  :   2020/9/29
 
 Note:
     v1.0 : Create Project.
     v1.1 : Add MakePython Audio support.
     v1.2 : Ass MakePython A9G support.
+    v1.3 : Add A9G and ILI9341 support.
 
 1.
 For easy use ESP32 GPIO,define SPI, I2C, and LCD, SDcard pins.
@@ -45,6 +46,7 @@ Support List:
 
     (2)Touch Screen Camera:
         ESP32 Touch Screen Camera With 9488
+        ESP32 Touch Screen Camera With ILI9341
 
 -------------------------------------------------
 */
@@ -54,7 +56,7 @@ Support List:
 //#define MP_ESP32 OK
 //#define MP_ESP32_COLOR OK
 //#define ESP32_TSC_9488 OK
-#define ESP32_ILI9341 ERR //don't use
+#define ESP32_TSC_9341 TEST //don't use
 
 //SHIELD
 //#define MP_AUDIO OK
@@ -194,23 +196,45 @@ note    :
 #endif
 
 /*
-    name    :   ESP32 Touch Screen Camera With ILI9341
-    Not ready
+update  :   2020/9/29
+name    :   ESP32 Touch Screen Camera With ILI9341
+sigillum:   ESP32_TSC_9341 
+wiki    :   
+module  :   
+            (1) 3.2inch TFT ILI9341 driver
+            (2) SDcard Reader
+            (3) SPI Touch Screen(STMPE610)
+            (4) OV2640 Camera
 */
 
-#ifdef ESP32_ILI9341
+#ifdef ESP32_TSC_9341
 
-#define LCD_MOSI 13
-#define LCD_MISO 12
-#define LCD_SCK 14//14
-#define LCD_CS 15
-#define LCD_RST -1
-#define LCD_DC 33//33
-#define LCD_BL -1 //5
 
-#define LCD_WIDTH 320
-#define LCD_HEIGHT 240
-#define LCD_SPI_HOST VSPI_HOST
+//SPI
+#define ESP32_TSC_9341_SPI_MOSI 13
+#define ESP32_TSC_9341_SPI_MISO 12
+#define ESP32_TSC_9341_SPI_SCK 14
+
+//SD Card
+#define ESP32_TSC_9341_SD_CS 4
+
+//Touch Screen
+#define ESP32_TSC_9341_STMPE_CS 2
+
+//TFT
+#define ESP32_TSC_9341_LCD_CS 15
+
+#define ESP32_TSC_9341_LCD_DC 33
+#define ESP32_TSC_9341_LCD_BL -1 
+#define ESP32_TSC_9341_LCD_RST -1 
+
+#define ESP32_TSC_9341_LCD_WIDTH 320
+#define ESP32_TSC_9341_LCD_HEIGHT 240
+#define ESP32_TSC_9341_LCD_SPI_HOST VSPI_HOST
+
+//I2C
+#define ESP32_TSC_9341_SDA 26
+#define ESP32_TSC_9341_SCL 27
 
 #endif
 

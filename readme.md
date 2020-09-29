@@ -10,7 +10,7 @@ Note:
 */
 ```
 
-![](md_pic/main.jpg)
+![](md_pic/main.gif)
 
 
 [toc]
@@ -81,7 +81,7 @@ Five projects were implemented : "Graphic_Test", "Touch_Test", "Touch_Draw", "SD
 
 - Display pictures from SD card.
 
-![SD2TFT](md_pic/SD2TFT.jpg)
+![SD2TFT](md_pic/logo.jpg)
 
 ### Wifi_Camera
 

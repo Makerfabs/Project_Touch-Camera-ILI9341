@@ -94,10 +94,13 @@ void setup()
     tft.setRotation(1);
     SPI_OFF_TFT;
     Serial.println("TFT init over.");
+    print_img(SD, "/logo.bmp");
+    while(1);
 }
 
 void loop(void)
 {
+    
     unsigned long start = micros();
     for (int i = 0; i < 5; i++)
     {
@@ -215,8 +218,8 @@ int print_img(fs::FS &fs, String filename)
     }
 
     f.seek(54);
-    int X = 480;
-    int Y = 320;
+    int X = 320;
+    int Y = 240;
     uint8_t RGB[3 * X];
     for (int row = 0; row < Y; row++)
     {
