@@ -2,10 +2,11 @@
 
 ```c++
 /*
-Version:		V1.0
+Version:		V1.1
 Author:			Vincent
 Create Date:	2020/9/28
 Note:
+		V1.1:Add Screen Shot Receiver Function.
 	
 */
 ```
@@ -99,6 +100,30 @@ Five projects were implemented : "Graphic_Test", "Touch_Test", "Touch_Draw", "SD
 
 - Use esp32 and ov2640 as a webcam.
 - Provides a real-time display of the control web page.
+
+
+
+### Screen Shot Receiver
+
+Transmit the contents of the monitor to the TFT screen via Wifi.A host computer software is provided to box select the areas of the screen that need to be transferred.
+
+Change from [MakePython ESP32 Color LCD で 動画をWiFi受信](https://homemadegarbage.com/makerfabs05)
+
+- Upload codes.
+
+- Open "ScreenShotSender.exe"
+
+- Input IP on the screen.
+
+![SD2TFT](md_pic/ss-1.jpg)
+
+- Click "Connect"
+
+![SD2TFT](md_pic/ss-2.jpg)
+
+  `
+
+
 
 
 
