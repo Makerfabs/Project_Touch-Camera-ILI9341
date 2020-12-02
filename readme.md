@@ -2,12 +2,13 @@
 
 ```c++
 /*
-Version:		V1.2
+Version:		V1.3
 Author:			Vincent
 Create Date:	2020/9/28
 Note:
 		V1.1:Add Screen Shot Receiver Function.
 		V1.2:Add a faster camera example.
+		2020/12/2 v1.3:Add album and a meter display.
 	
 */
 ```
@@ -131,10 +132,16 @@ Change from [MakePython ESP32 Color LCD で 動画をWiFi受信](https://homemad
 ![SD2TFT](md_pic/ss-2.jpg)
 
   `
+### Album
 
+Read JPG image from SD card and display it on screen.You can switch photos by clicking on the left or right side of the screen.For the sake of display, it is best not to be larger than 320 * 240 pixels.
+- Copy the image from the JPG folder to the SD root directory.
+- Insert SD card.
+- Upload code to ESP32.
+- Restart ESP32.
+- Will show jpg picture in SD card.
 
-
-
+![album](md_pic/album.jpg)
 
 
 
