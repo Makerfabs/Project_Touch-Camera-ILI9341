@@ -61,11 +61,11 @@ void loop()
     esp_camera_fb_return(fb);
 }
 
-//ILI9488 init and SD card init
+//ILI9341 init and SD card init
 void esp32_init()
 {
     Serial.begin(115200);
-    Serial.println("ILI9488 Test!");
+    Serial.println("ILI9341 Test!");
 
     //I2C init
     Wire.begin(SDA, SCL);

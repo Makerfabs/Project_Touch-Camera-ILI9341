@@ -3,8 +3,8 @@
 //#include "Adafruit_ILI9341.h"
 #include <LovyanGFX.hpp>
 #include "Adafruit_STMPE610.h"
-//#include "SD.h"
-//#include "FS.h"
+#include "SD.h"
+#include "FS.h"
 
 #include "esp_camera.h"
 #define CAMERA_MODEL_MAKERFABS
@@ -75,11 +75,11 @@ void loop()
     esp_camera_fb_return(fb);
 }
 
-//ILI9488 init and SD card init
+//ILI9341 init and SD card init
 void esp32_init()
 {
     Serial.begin(115200);
-    Serial.println("ILI9488 Test!");
+    Serial.println("ILI9341 Test!");
 
     //I2C init
     Wire.begin(SDA, SCL);
@@ -93,26 +93,6 @@ void esp32_init()
     STMPE_OFF;
     SPI.begin(SPI_SCK, SPI_MISO, SPI_MOSI);
 
-    /*
-    SPI_ON_SD;
-    //SD(SPI) init
-    if (!SD.begin(SD_CS, SPI, 80000000))
-    {
-        Serial.println("Card Mount Failed");
-        while (1)
-            ;
-    }
-    else
-    {
-        Serial.println("Card Mount Successed");
-    }
-    //sd_test();
-    SPI_OFF_SD;
-
-    Serial.println("SD init over.");
-
-    */
-
     //TFT(SPI) init
     SPI_ON_TFT;
 
@@ -121,34 +101,107 @@ void esp32_init()
     tft.begin();
     tft.setRotation(1);
     tft.fillScreen(TFT_BLACK);
+    tft.setTextSize(3);
 
-    tft.setTextColor(TFT_RED);
-    tft.setTextSize(4);
-    tft.println("TOUCH TO START TEST");
-    tft.setRotation(3);
+    Serial.println("TFT init over.");
     SPI_OFF_TFT;
+
+    SPI_ON_SD;
+    //SD(SPI) init
+    if (!SD.begin(SD_CS, SPI, 80000000))
+    {
+        SPI_OFF_SD;
+        SPI_ON_TFT;
+
+        //tft.setRotation(1);
+        tft.fillScreen(TFT_BLACK);
+
+        tft.setTextColor(TFT_RED);
+        tft.setTextSize(3);
+        tft.setCursor(0, 0);
+        tft.println("SD Card Mount Failed");
+        tft.setTextColor(TFT_WHITE);
+        tft.setCursor(0, 60);
+        tft.println("You can continue testing the camera after 3 seconds");
+        tft.setTextColor(TFT_YELLOW);
+        tft.setCursor(0, 150);
+        tft.println("Or restart after re-inserting the SD card");
+        Serial.println("Card Mount Failed");
+        delay(3000);
+        SPI_OFF_TFT;
+        //while (1);
+    }
+    else
+    {
+        Serial.println("Card Mount Successed");
+        tft.setRotation(3);
+        print_img(SD, "/logo320240.bmp");
+        delay(2000);
+        tft.fillScreen(TFT_BLACK);
+    }
+    Serial.println("SD init over.");
 
     STMPE_ON;
     if (!touch.begin())
     {
+        STMPE_OFF;
+        SPI_ON_TFT;
+        tft.fillScreen(TFT_BLACK);
+        tft.setTextColor(TFT_RED);
+        tft.setCursor(0, 0);
+        tft.println("Touch Screen ERROR.");
         Serial.println("STMPE not found!");
         while (1)
             ;
     }
+
+    //Draw Touch Button
+    STMPE_OFF;
+    SPI_ON_TFT;
+    tft.setRotation(1);
+    tft.fillScreen(TFT_BLACK);
+    tft.setTextColor(TFT_RED);
+    tft.setCursor(0, 0);
+    tft.println("Touch Button to continue.");
+    tft.fillRect(100, 100, 120, 120, TFT_BLUE);
+    tft.setCursor(110, 110);
+    tft.setTextSize(2);
+    tft.println("CONTINUE");
+    tft.setRotation(3);
+    SPI_OFF_TFT;
+    STMPE_ON;
+
     while (1)
     {
         if (touch.touched())
         {
-            Serial.println("Touched");
-            break;
-        }
+            uint16_t x, y;
+            uint8_t z;
+            int flag = 0;
+            // read x & y & z;
+            while (!touch.bufferEmpty())
+            {
+                Serial.print(touch.bufferSize());
+                touch.readData(&x, &y, &z);
 
-        delay(100);
+                x = x * 240 / 4096;
+                y = 320 - y * 320 / 4096;
+
+                Serial.print("->(");
+                Serial.print(y);
+                Serial.print(", ");
+                Serial.println(x);
+
+                if (y > 100 && y < 220 && x > 120 && x < 240)
+                    flag = 1;
+            }
+            touch.writeRegister8(STMPE_INT_STA, 0xFF); // reset all ints, in this example unneeded depending in use
+            if (flag == 1)
+                break;
+        }
+        delay(10);
     }
     STMPE_OFF;
-
-    Serial.println("TFT init over.");
-    //print_img(SD, "/logo.bmp");
 }
 
 //Camera setting
@@ -218,7 +271,6 @@ void drawRGBBitmap(uint8_t *bitmap, int16_t w, int16_t h)
     SPI_OFF_TFT;
 }
 
-/*
 //From SD
 int print_img(fs::FS &fs, String filename)
 {
@@ -252,7 +304,6 @@ int print_img(fs::FS &fs, String filename)
     SPI_OFF_SD;
     return 0;
 }
-*/
 
 void set_tft()
 {
