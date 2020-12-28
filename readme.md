@@ -2,13 +2,14 @@
 
 ```c++
 /*
-Version:		V1.3
+Version:		V1.4
 Author:			Vincent
 Create Date:	2020/9/28
 Note:
 		V1.1:Add Screen Shot Receiver Function.
 		V1.2:Add a faster camera example.
 		2020/12/2 v1.3:Add album and a meter display.
+		2020/12/28 v1.4: Add camera_faster_v2.
 	
 */
 ```
@@ -74,10 +75,12 @@ This is a test demo. You can check that ESP32, screen, touch, SD card reader and
 - Will show logo picture in SD card.
 - And ESP32 will open camera, and show on screen.
 
-### Camera_faster
+### Camera_faster_v2
 
 Use LovyanGFX library. More faster than Adafruit_GFX. This example don't need SD card.
 - Upload code to ESP32.
+- Copy logo320240.bmp to sd card.
+- Insert SD card.
 - Restart ESP32.
 - Screen will show "TOUCH TO START TEST", please touch screen.
 - And ESP32 will open camera, and show on screen.
