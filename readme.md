@@ -40,7 +40,7 @@ The ILI9341 screen has more adaptation libraries. Such as Adafruit_GFX, Adafriut
 
 # ESP32 Touch Camera
 
-## Product link ：[Not ready]() 
+## Product link ：[ESP32 3.2" TFT Touch with Camera](https://www.makerfabs.com/esp32-3.2-inch-tft-touch-with-camera.html) 
 
 The ESP32 Touch Camera ILI9341 use ILI9341 screen, which comes with resistive screens. Have an OV2640 camera and SD card slot. It can be used as a webcam, an electronic album, or a digital camera. Support for Arduino and MicroPython. 
 
